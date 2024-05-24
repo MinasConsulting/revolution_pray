@@ -94,3 +94,28 @@ body {
     background-color: #0056b3;
   }
   
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .day {
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .day-low-coverage {
+    background-color: #ff0000;
+  }
+  
+  .day-medium-coverage {
+    background-color: #ffff00;
+  }
+  
+  .day-high-coverage {
+    background-color: #00ff00;
+  }
+
