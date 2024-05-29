@@ -1,8 +1,12 @@
-<!-- src/components/Popover.svelte -->
 <script>
+    import SignUpPopover from './SignUpPopover.svelte';
+  
     export let isOpen = false;
     export let date = null;
     export let hourlyCoverage = [];
+  
+    let isSignUpPopoverOpen = false;
+    let selectedHour = '';
   
     function closePopover() {
       isOpen = false;
@@ -20,8 +24,8 @@
     }
   
     function handleSignUp(hour) {
-      alert(`Signing up for ${hour}`);
-      // Implement sign-up logic here
+      selectedHour = hour;
+      isSignUpPopoverOpen = true;
     }
   </script>
   
@@ -113,4 +117,6 @@
       <button on:click={closePopover}>Close</button>
     </div>
   {/if}
+  
+  <SignUpPopover {isSignUpPopoverOpen} hour={selectedHour} bind:isOpen={isSignUpPopoverOpen} />
   
