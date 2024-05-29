@@ -7,6 +7,17 @@
     function closePopover() {
       isOpen = false;
     }
+  
+    function getHourClass(status) {
+      switch (status) {
+        case 'covered':
+          return 'hour-covered';
+        case 'available':
+          return 'hour-available';
+        default:
+          return '';
+      }
+    }
   </script>
   
   <style>
@@ -34,15 +45,50 @@
       background: rgba(0, 0, 0, 0.5);
       z-index: 999;
     }
+  
+    .hour {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    .hour-covered {
+      background-color: #d4edda;
+    }
+  
+    .hour-available {
+      background-color: #f8d7da;
+    }
+  
+    .hour-time {
+      font-weight: bold;
+    }
+  
+    .hour-status {
+      font-size: 0.9rem;
+      color: #666;
+    }
+  
+    .scrollable {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      padding-right: 1rem;
+    }
   </style>
   
   {#if isOpen && date}
     <div class="backdrop" on:click={closePopover}></div>
     <div class="popover">
       <h1>Prayer Coverage for {date.toDateString()}</h1>
-      <div class="section">
-        {#each hourlyCoverage as { hour, status }}
-          <p>{hour} - {status}</p>
+      <div class="scrollable">
+        {#each Array(24) as _, i}
+          <div class="hour {getHourClass(hourlyCoverage[i]?.status)}">
+            <span class="hour-time">{i}:00 - {i + 1}:00</span>
+            <span class="hour-status">{hourlyCoverage[i]?.status || 'no coverage'}</span>
+          </div>
         {/each}
       </div>
       <button on:click={closePopover}>Close</button>
