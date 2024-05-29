@@ -18,6 +18,11 @@
           return '';
       }
     }
+  
+    function handleSignUp(hour) {
+      alert(`Signing up for ${hour}`);
+      // Implement sign-up logic here
+    }
   </script>
   
   <style>
@@ -47,8 +52,8 @@
     }
   
     .hour {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
       align-items: center;
       padding: 0.5rem;
       border-bottom: 1px solid #ddd;
@@ -77,6 +82,19 @@
       margin-top: 1rem;
       padding-right: 1rem;
     }
+  
+    .sign-up-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+    }
+  
+    .sign-up-button:hover {
+      background-color: #0056b3;
+    }
   </style>
   
   {#if isOpen && date}
@@ -88,6 +106,7 @@
           <div class="hour {getHourClass(hourlyCoverage[i]?.status)}">
             <span class="hour-time">{i}:00 - {i + 1}:00</span>
             <span class="hour-status">{hourlyCoverage[i]?.status || 'no coverage'}</span>
+            <button class="sign-up-button" on:click={() => handleSignUp(`${i}:00 - ${i + 1}:00`)}>Sign Up</button>
           </div>
         {/each}
       </div>
