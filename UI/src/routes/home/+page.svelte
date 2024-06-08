@@ -1,14 +1,12 @@
-<!-- src/routes/home/+page.svelte -->
 <script>
-  import { onMount } from 'svelte';
   import '../../app.css';
   import Popover from '../../components/Popover.svelte';
 
   const today = new Date();
   const prayerCoverage = {
-    '2024-05-01': 'low',
-    '2024-05-02': 'medium',
-    '2024-05-03': 'high'
+    '2024-06-01': 'low',
+    '2024-06-02': 'medium',
+    '2024-06-03': 'high'
   };
 
   let isPopoverOpen = false;
@@ -23,11 +21,12 @@
   function handleDateClick(date) {
     selectedDate = date;
     // Example hourly data; replace with actual data fetching
-    hourlyCoverage = [
-      { hour: '00:00 - 01:00', status: 'available' },
-      { hour: '01:00 - 02:00', status: 'covered' },
-      // ... more hours
-    ];
+    hourlyCoverage = Array(24).fill().map((_, i) => {
+      if (i % 4 === 0) return { hour: `${i}:00 - ${i + 1}:00`, status: '0/3' };
+      if (i % 4 === 1) return { hour: `${i}:00 - ${i + 1}:00`, status: '1/3' };
+      if (i % 4 === 2) return { hour: `${i}:00 - ${i + 1}:00`, status: '2/3' };
+      return { hour: `${i}:00 - ${i + 1}:00`, status: '3/3' };
+    });
     isPopoverOpen = true;
   }
 
@@ -52,10 +51,12 @@
 </script>
 
 <div class="container">
-  <h1>Main Page</h1>
-
+<br>
+<br>
+<br>
   <div class="section">
-    <h2>Your Committed Prayer Hours</h2>
+    <h2>Hello Evan</h2>
+    <h2>Your Prayer Hours</h2>
     <p>Mon 8:00 AM - 9:00 AM</p>
     <p>Wed 6:00 PM - 7:00 PM</p>
   </div>
